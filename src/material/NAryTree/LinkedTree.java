@@ -1,14 +1,17 @@
 package material.NAryTree;
 
+import javafx.geometry.Pos;
 import material.Position;
 import material.iterators.BFSIterator;
+import sun.net.www.http.PosterOutputStream;
+
 import java.util.*;
 
 public class LinkedTree<E> implements NAryTree<E> {
     // Nodos del arbol
-    class TreeNode<E> implements Position<E> {
+    static class TreeNode<E> implements Position<E> {
         // Iterador
-        class LinkedTreeIterator<E> implements Iterator<Position<E>> {
+        static class LinkedTreeIterator<E> implements Iterator<Position<E>> {
             // recorrido en anchura = cola
             ArrayDeque<TreeNode<E>> queue = new ArrayDeque<>();
             LinkedTree<E> tree;
@@ -105,7 +108,7 @@ public class LinkedTree<E> implements NAryTree<E> {
     }
 
     @Override
-    public Position parent(Position v) throws RuntimeException {
+    public Position<E> parent(Position<E> v) throws RuntimeException {
         TreeNode<E> node = checkPosition(v); // para comprobar que es válido
         Position<E> parent = node.getParent();
         if (parent == null){
@@ -115,34 +118,34 @@ public class LinkedTree<E> implements NAryTree<E> {
     }
 
     @Override
-    public Iterable<? extends Position> children(Position v) {
+    public Iterable<? extends Position<E>> children(Position<E> v) {
         TreeNode<E> node = checkPosition(v);
         return node.getChildren();
     }
 
     @Override
-    public boolean isInternal(Position v) {
+    public boolean isInternal( Position<E> v) {
         return !(isLeaf(v));
     }
 
     @Override
-    public boolean isLeaf(Position v) throws RuntimeException {
+    public boolean isLeaf( Position<E> v) throws RuntimeException {
         TreeNode<E> node = checkPosition(v);
         return (node.getChildren() == null || node.getChildren().isEmpty());
     }
 
     @Override
-    public boolean isRoot(Position v) {
+    public boolean isRoot( Position<E> v) {
         TreeNode<E> node = checkPosition(v);
         return node == root;
     }
 
     @Override
-    public Position addRoot(E e) throws RuntimeException {
+    public  Position<E> addRoot(E e) throws RuntimeException {
         if (this.root != null) {
             throw new RuntimeException("This tree already has a root.");
         }
-        TreeNode<E> newNode = new TreeNode<>(this,e , null, null);
+        TreeNode<E> newNode = new TreeNode<>(this, e, null, null);
         this.root = newNode;
         this.size = 1;
         return  newNode; // Si tenemos que devolver un Position vale devolver un TreeNode , es compatible
@@ -163,7 +166,7 @@ public class LinkedTree<E> implements NAryTree<E> {
 
     // Cambiar los elementos (E) de dos position dados
     @Override
-    public void swapElements(Position p1, Position p2) {
+    public void swapElements( Position<E> p1,  Position<E> p2) {
         TreeNode<E> node1 = checkPosition(p1);
         TreeNode<E> node2 = checkPosition(p2);
         E e2 = node2.getElement(); // guardamos en una variable
@@ -175,7 +178,7 @@ public class LinkedTree<E> implements NAryTree<E> {
     @Override
     public Position<E> add(E element, Position<E> p) {
         TreeNode<E> parent = checkPosition(p);
-        TreeNode<E> newNode = new TreeNode<>(this, element, new ArrayList<>(),parent);
+        TreeNode<E> newNode = new TreeNode<>(this, element, new ArrayList<>(), parent);
         List<TreeNode<E>> children = parent.getChildren();
         children.add(newNode);
         this.size++;
@@ -183,7 +186,7 @@ public class LinkedTree<E> implements NAryTree<E> {
     }
 
     @Override
-    public void remove(Position p) {
+    public void remove( Position<E> p) {
         TreeNode<E> node = checkPosition(p);
         TreeNode<E> parent = node.getParent();
         if (parent != null) {
@@ -206,7 +209,7 @@ public class LinkedTree<E> implements NAryTree<E> {
 
     // Mueve el nodo POrigen para hacerlo hijo de PDestino
     @Override
-    public void moveSubtree(Position pOrig, Position pDest) throws RuntimeException {
+    public void moveSubtree( Position<E> pOrig,  Position<E> pDest) throws RuntimeException {
         TreeNode<E> origen = checkPosition(pOrig);
         TreeNode<E> destino = checkPosition(pDest);
         origen.setParent(destino);
@@ -247,4 +250,5 @@ public class LinkedTree<E> implements NAryTree<E> {
         }
         return positions;
     }*/
+
 }

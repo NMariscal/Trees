@@ -46,4 +46,5 @@ public interface NAryTree<E> extends Tree<E> {
      * @throws RuntimeException if the destination node is a subtree of the original one
      */
     void moveSubtree(Position<E> pOrig, Position<E> pDest) throws RuntimeException;
+
 }
