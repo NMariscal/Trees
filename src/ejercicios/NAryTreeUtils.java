@@ -7,6 +7,8 @@ import material.Position;
 import material.Tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NAryTreeUtils<E> {
     LinkedTree<E> tree ;
@@ -20,7 +22,7 @@ public class NAryTreeUtils<E> {
     // La función deberá devolver el nivel de position pasado y si este position no pertenece al arbol lanza una excepcion
     public int level(Position<E> position) throws IllegalStateException{
         int level = 0;
-        while (tree.isRoot(position)){
+        while (!tree.isRoot(position)){
             level ++;
             position = tree.parent(position);
         }
@@ -67,5 +69,33 @@ public class NAryTreeUtils<E> {
             }
         }
         return recorrido;
+    }
+
+    public Iterable<Position<E>> leftView(){
+        ArrayList<Position<E>> left = new ArrayList<>();
+        HashMap<Integer, ArrayList<Position<E>>> levels = new HashMap<>();
+        for (Position<E> position : tree){
+            ArrayList<Position<E>> childs = new ArrayList<>();
+            int counter = 0;
+            while (!tree.isRoot(position)){
+                counter ++;
+            }
+            childs.add(position);
+            ArrayList<Position<E>> list = levels.get(counter);
+            if ( list == null){
+                list = childs;
+            }else{
+                list.add(position);
+                levels.put(counter, list);
+            }
+        }
+        int n = levels.size();
+        for (int i = 0; i < n; i++) {
+            ArrayList<Position<E>> l = levels.get(i);
+            if (l.size() >= 1){
+                left.add(l.get(0));
+            }
+        }
+        return left;
     }
 }
