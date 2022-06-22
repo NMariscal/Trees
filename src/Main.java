@@ -5,6 +5,7 @@ import material.BinaryTree.LinkedBinaryTree;
 import material.NAryTree.LinkedTree;
 import material.NAryTree.NAryTree;
 import material.Position;
+import material.iterators.PostorderBinaryTreeIterator;
 import material.iterators.PreorderBinaryTreeIterator;
 
 import java.util.ArrayList;
@@ -29,18 +30,18 @@ public class Main {
 
 
 
-        /*Iterator<Position<Integer>> it = new PreorderBinaryTreeIterator<>(arbolBinarioEnteros, raiz);
+        Iterator<Position<Integer>> it = new PostorderBinaryTreeIterator<>(arbolBinarioEnteros, raiz);
         while (it.hasNext()){
             System.out.println(it.next().getElement());
-        }*/
+        }
 
-        System.out.println("Es arbol vacio = " + arbolBinarioEnteros.isEmpty());
+        /*System.out.println("Es arbol vacio = " + arbolBinarioEnteros.isEmpty());
         /*BinaryTreeUtils<Integer> binaryTreeUtils = new BinaryTreeUtils<>(arbolBinarioEnteros);
         boolean solution = binaryTreeUtils.isPerfect(arbolBinarioEnteros);
         System.out.println(solution);*/
 
         // arbol NArio
-        LinkedTree<Integer> arbolNArioEnteros = new LinkedTree<>();
+        /*LinkedTree<Integer> arbolNArioEnteros = new LinkedTree<>();
 
         Position<Integer> positionRaiz = arbolNArioEnteros.addRoot(5);
 
@@ -49,7 +50,7 @@ public class Main {
         Position<Integer> segundoHijo = arbolNArioEnteros.add (20,positionRaiz);
         Position<Integer> tercerHijo = arbolNArioEnteros.add (30,positionRaiz);
 
-        Position<Integer> nieto1 = arbolNArioEnteros.add (100, primerHijo);
+        Position<Integer> nieto1 = arbolNArioEnteros.add (100, primerHijo);3
         /*Position<Integer> N1 = arbolNArioEnteros.add(9, arbolNArioEnteros.root());
         Position<Integer> N2 = arbolNArioEnteros.add(8, arbolNArioEnteros.root());
         Position<Integer> N3 = arbolNArioEnteros.add(7, arbolNArioEnteros.root());
@@ -59,10 +60,10 @@ public class Main {
         Position<Integer> N7 = arbolNArioEnteros.add(3, N6);
         Position<Integer> N8 = arbolNArioEnteros.add(2, N3);*/
 
-        NAryTreeUtils<Integer> nAryTreeUtils = new NAryTreeUtils<>(arbolNArioEnteros);
+        /*NAryTreeUtils<Integer> nAryTreeUtils = new NAryTreeUtils<>(arbolNArioEnteros);
         System.out.println("Numero de hermanos del nodo que contiene el 8 = "+ nAryTreeUtils.numHermanos(positionRaiz));
 
 
-
+*/
     }
 }
